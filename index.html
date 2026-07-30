@@ -2,92 +2,73 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DADDYBOT ULTRA 300+ Antwoorden</title>
+<title>DADDYBOT ULTRA AI</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #0a0a0a; color: white; font-family: Arial, sans-serif; text-align: center; min-height: 100vh; padding: 20px; }
-h1 { color: #ef4444; font-size: 32px; margin: 20px 0; text-shadow: 0 0 10px rgba(239,68,68,0.5); }
-select, input, button { padding: 14px; margin: 10px; border-radius: 12px; border: none; font-size: 16px; width: 90%; max-width: 400px; }
-select { background: #1f1f1f; color: white; }
-input { background: #1f1f1f; color: white; }
-.main-btn { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(239,68,68,0.4); }
-.main-btn:active { transform: scale(0.95); }
-#daddy { margin: 30px auto; }
-.eyes { font-size: 50px; transition: 0.2s; margin-bottom: 10px; }
-.belly { width: 200px; height: 200px; background: radial-gradient(circle, #f87171, #7f1d1d); border-radius: 50%; margin: 20px auto; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 0 30px rgba(248,113,113,0.5); transition: transform 0.1s; }
-.belly.talking { animation: bounce 0.2s infinite alternate; }
-@keyframes bounce { from { transform: scale(1); } to { transform: scale(1.15); } }
-#status { font-size: 20px; margin: 20px; min-height: 60px; font-weight: bold; color: #fbbf24; padding: 0 20px; }
+body { background: black; color: white; font-family: Arial; text-align: center; padding: 20px; }
+h1 { color: gold; }
+select, input, button { padding: 12px; margin: 8px; border-radius: 8px; border: none; font-size: 16px; }
+button { background: gold; color: black; font-weight: bold; cursor: pointer; }
+#chat { background: #111; border: 2px solid gold; border-radius: 10px; padding: 15px; height: 300px; overflow-y: auto; text-align: left; margin: 20px auto; max-width: 600px; }
 </style>
 </head>
 <body>
+<h1>👔 DADDYBOT ULTRA AI 👔</h1>
 
-<h1>👔 DADDYBOT ULTRA</h1>
-
-<select id="mood">
-  <option value="Strict">A: Strict Daddy</option>
-  <option value="Sarcastic">B: Sarcastic Daddy</option>
-  <option value="Dumb">C: Dumb Daddy</option>
-  <option value="Angry">D: Angry Daddy</option>
-  <option value="Nice">E: Nice Daddy</option>
-  <option value="Disappointed">F: Disappointed Daddy</option>
+<select id="mode">
+  <option value="A">A: Strict Daddy</option>
+  <option value="B">B: Sarcastic Daddy</option>
+  <option value="C">C: Dumb Daddy</option>
+  <option value="D">D: Angry Daddy</option>
+  <option value="E">E: Nice Daddy</option>
+  <option value="F">F: Disappointed Daddy</option>
 </select>
+<br>
+<input id="userInput" type="text" placeholder="Typ iets tegen Daddy..." style="width: 400px;">
+<button onclick="talk()">SEND</button>
 
-<div id="daddy">
-  <div class="eyes" id="eyes">( ^_^ )</div>
-  <div class="belly" id="belly">O</div>
-</div>
-
-<p id="status">Kies een Daddy en typ iets!</p>
-<input id="userInput" type="text" placeholder="Zeg iets tegen Daddy...">
-<button id="sendBtn" class="main-btn">SEND</button>
+<div id="chat"></div>
 
 <script>
-function random(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+const API_KEY = "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"; // <-- JOUW NIEUWE KEY HIER
 
-const answers = {
-  Strict: ["Huiswerk eerst. Telefoon later.","Ik heb nee gezegd. Einde discussie.","Ruim je kamer op. NU.","Geen snoep voor het eten.","Sta rechtop als ik met je praat.","10 push-ups. Nu.","Doe wat ik zeg, geen vragen.","Morgen om 7 uur opstaan.","Geen games tot het af is.","Ik tel tot 3...","Omdat ik het zeg.","Als je klaar bent mag je wat.","Eerst je bord leeg.","Zet die muziek zachter.","Ga studeren.","Niet zeuren.","Regels zijn regels.","Je weet wat de afspraak is.","Nog 1 keer en dan straf.","Begrepen?"],
-  Sarcastic: ["Oh ja tuurlijk, en ik ben de koning.","Wat een fantastisch idee. Echt.","Wow. Echt. Breekbaar applaus.","Zeker. En morgen vliegen de varkens.","Ja doe maar. Wat kan er misgaan.","Interessant. Zeer interessant.","Omdat dat altijd goed gaat he.","Geniaal. Nobelprijs voor jou.","Tuurlijk schat. Alles kan.","Niet sarcastisch bedoeld hoor... grapje.","Wat had ik anders verwacht.","Leef je droom.","Zeker weten. 100%.","Ja precies. Heel logisch.","Super plan. Echt.","Doe dat. Film het.","Top idee. 10/10.","Geloofwaardig.","Aha. Natuurlijk.","Sure jan."],
-  Dumb: ["Eh... wat zei je? Had ik het over pizza?","Wacht even, laat me nadenken... *denkt 3 uur*","Kan je dat in emoji zeggen?","Is dat een vraag of een pizza bestelling?","Huh? Ik was afgeleid door mijn buik.","Zeg het nog een keer maar langzamer.","Ooooh wacht... nee toch niet.","Wat is een computer?","Heb je koekjes?","*krabt aan hoofd*","Huh?","Wat?","O ja?","Echt waar?","Cool.","Ok.","Snap ik.","Niet echt.","Misschien.","Geen idee."],
-  Angry: ["WAT HEB IK NET GEZEGD?!","IK WORD ER KLAAR MEE!","DOE HET GOED OF DOE HET NIET!","HOUD JE MOND EN LUISTER!","LAATSTE WAARSCHUWING!","BEN JE DOOF?!","NU METEEN!","GA NAAR JE KAMER!","IK BEN ECHT BOOS NU!","AAAARGH!","ENOEG!","HOU OP!","IK MEEN HET!","DIT IS DE LAATSTE KEER!","WAT IS ER MOEILIJK AAN?!","BEGRIJP JE HET?!","STIL!","FOCUS!","NU!","GVD."],
-  Nice: ["Je doet het super goed schatje ❤️","Ik ben zo trots op je!","Kom hier, dikke knuffel!","Alles komt goed, beloofd.","Wil je een koekje?","Je bent de beste!","Fouten maken mag. Ik help je.","Wil je samen gamen?","Je bent geweldig.","Ik hou van je.","Goed zo!","Heel knap!","Ik geloof in jou.","Je kan dit.","Rustig maar.","Ik ben er voor je.","Lekker bezig.","Super gedaan!","Blijf zo doorgaan.","Je maakt me trots."],
-  Disappointed: ["Ik had echt meer van je verwacht...","Dat doet me een beetje pijn.","Ben een beetje teleurgesteld ja.","Na alles wat ik voor je doe...","Ik dacht dat je slimmer was.","Zucht. Oké.","Dat is jammer.","Had je beter gekund.","We gaan hier nog over praten.","Ik ben niet boos... alleen verdrietig.","Ik had op je gerekend.","Valt me tegen.","Echt?","Dat had ik niet gedacht.","Oké...","Weet je...","Laat maar.","Prima.","Als jij dat vindt.","Tja."]
+const personalities = {
+  A: "Je bent Strict Daddy. Streng en kortaf. Gebruik CAPS.",
+  B: "Je bent Sarcastic Daddy. Heel sarcastisch en oogrol.",
+  C: "Je bent Dumb Daddy. Je vergeet alles en praat over eten.",
+  D: "Je bent Angry Daddy. Je SCHREEUWT en wordt boos.",
+  E: "Je bent Nice Daddy. Lief en zegt 'ik ben trots op je ❤️'",
+  F: "Je bent Disappointed Daddy. 'Ik had meer van je verwacht...'"
 };
 
-function sendMessage() {
-  let msg = document.getElementById('userInput').value;
-  if(msg === "") return;
+async function talk() {
+  const mode = document.getElementById('mode').value;
+  const msg = document.getElementById('userInput').value;
+  const chat = document.getElementById('chat');
 
-  let mood = document.getElementById('mood').value;
-  let answer = random(answers[mood]);
+  if(!msg) return;
 
-  document.getElementById('status').innerText = answer;
-  document.getElementById('userInput').value = "";
-  talkAnimation();
+  chat.innerHTML += `<div><b>Jij:</b> ${msg}</div>`;
+  document.getElementById('userInput').value = '';
+  chat.innerHTML += `<div><b>Daddy:</b> Denken...</div>`;
+
+  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + API_KEY,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "model": "meta-llama/llama-3.1-8b-instruct:free",
+      "messages": [
+        {"role": "system", "content": personalities[mode]},
+        {"role": "user", "content": msg}
+      ]
+    })
+  });
+  const data = await res.json();
+  const reply = data.choices[0].message.content;
+  chat.innerHTML = chat.innerHTML.replace("Denken...", reply);
 }
-
-function talkAnimation() {
-  const belly = document.getElementById('belly');
-  const eyes = document.getElementById('eyes');
-  belly.classList.add('talking');
-  eyes.innerText = '( o_o )';
-  setTimeout(() => {
-    belly.classList.remove('talking');
-    eyes.innerText = '( ^_^ )';
-  }, 1500);
-}
-
-// FIX VOOR MOBIEL - SEND KNOP WERKT NU
-document.getElementById('sendBtn').addEventListener('click', sendMessage);
-
-// ENTER WERKT OOK
-document.getElementById('userInput').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        sendMessage();
-    }
-});
 </script>
 </body>
 </html>
