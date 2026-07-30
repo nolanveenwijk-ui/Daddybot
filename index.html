@@ -7,16 +7,18 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #0a0a0a; color: white; font-family: Arial, sans-serif; text-align: center; min-height: 100vh; padding: 20px; }
-h1 { color: #ef4444; font-size: 32px; margin: 20px 0; }
+h1 { color: #ef4444; font-size: 32px; margin: 20px 0; text-shadow: 0 0 10px rgba(239,68,68,0.5); }
 select, input, button { padding: 14px; margin: 10px; border-radius: 12px; border: none; font-size: 16px; width: 90%; max-width: 400px; }
-.main-btn { background: #ef4444; color: white; font-weight: bold; cursor: pointer; }
+select { background: #1f1f1f; color: white; }
+input { background: #1f1f1f; color: white; }
+.main-btn { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(239,68,68,0.4); }
 .main-btn:active { transform: scale(0.95); }
 #daddy { margin: 30px auto; }
-.eyes { font-size: 50px; transition: 0.2s; }
+.eyes { font-size: 50px; transition: 0.2s; margin-bottom: 10px; }
 .belly { width: 200px; height: 200px; background: radial-gradient(circle, #f87171, #7f1d1d); border-radius: 50%; margin: 20px auto; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 0 30px rgba(248,113,113,0.5); transition: transform 0.1s; }
 .belly.talking { animation: bounce 0.2s infinite alternate; }
 @keyframes bounce { from { transform: scale(1); } to { transform: scale(1.15); } }
-#status { font-size: 20px; margin: 20px; min-height: 60px; font-weight: bold; color: #fbbf24; }
+#status { font-size: 20px; margin: 20px; min-height: 60px; font-weight: bold; color: #fbbf24; padding: 0 20px; }
 </style>
 </head>
 <body>
@@ -39,7 +41,7 @@ select, input, button { padding: 14px; margin: 10px; border-radius: 12px; border
 
 <p id="status">Kies een Daddy en typ iets!</p>
 <input id="userInput" type="text" placeholder="Zeg iets tegen Daddy...">
-<button class="main-btn" onclick="sendMessage()">SEND</button>
+<button id="sendBtn" class="main-btn">SEND</button>
 
 <script>
 function random(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
@@ -56,3 +58,36 @@ const answers = {
 function sendMessage() {
   let msg = document.getElementById('userInput').value;
   if(msg === "") return;
+
+  let mood = document.getElementById('mood').value;
+  let answer = random(answers[mood]);
+
+  document.getElementById('status').innerText = answer;
+  document.getElementById('userInput').value = "";
+  talkAnimation();
+}
+
+function talkAnimation() {
+  const belly = document.getElementById('belly');
+  const eyes = document.getElementById('eyes');
+  belly.classList.add('talking');
+  eyes.innerText = '( o_o )';
+  setTimeout(() => {
+    belly.classList.remove('talking');
+    eyes.innerText = '( ^_^ )';
+  }, 1500);
+}
+
+// FIX VOOR MOBIEL - SEND KNOP WERKT NU
+document.getElementById('sendBtn').addEventListener('click', sendMessage);
+
+// ENTER WERKT OOK
+document.getElementById('userInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        sendMessage();
+    }
+});
+</script>
+</body>
+</html>
